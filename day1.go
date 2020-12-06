@@ -59,23 +59,3 @@ func findTrioSumEqual(list []int, sum int) (a, b, c int, err error) {
 	err = fmt.Errorf("cannot find a trio which sum equals %d", sum)
 	return 0, 0, 0, err
 }
-
-func main() {
-	values, err := parseFile("day1.input")
-	if err != nil {
-		fmt.Println(err)
-	}
-	a, b, err := findPairSumEqual(values, 2020)
-	if err != nil {
-		fmt.Println(err)
-	}
-	result := a * b
-	fmt.Println(result)
-
-	a, b, c, err := findTrioSumEqual(values, 2020)
-	if err != nil {
-		fmt.Println(err)
-	}
-	result = a * b * c
-	fmt.Println(result)
-}
