@@ -1,4 +1,4 @@
-package main
+package day2
 
 import (
 	"bufio"
@@ -80,6 +80,20 @@ func (p *policyPassword) Valid() bool {
 	return count >= p.p.minInst && count <= p.p.maxInst
 }
 
+func SolvePart1() {
+	passwords, err := parseFileDay2("day2.input")
+	if err != nil {
+		fmt.Println(err)
+	}
+	validCount := 0
+	for _, pass := range passwords {
+		if pass.Valid() {
+			validCount++
+		}
+	}
+	fmt.Println(validCount)
+}
+
 func (p *policyPassword) ValidAdvanced() bool {
 	count := 0
 	for i, c := range p.pass {
@@ -91,4 +105,18 @@ func (p *policyPassword) ValidAdvanced() bool {
 		}
 	}
 	return count == 1
+}
+
+func SolvePart2() {
+	passwords, err := parseFileDay2("day2.input")
+	if err != nil {
+		fmt.Println(err)
+	}
+	validCount := 0
+	for _, pass := range passwords {
+		if pass.ValidAdvanced() {
+			validCount++
+		}
+	}
+	fmt.Println(validCount)
 }

@@ -1,4 +1,4 @@
-package main
+package day1
 
 import (
 	"bufio"
@@ -40,6 +40,19 @@ func findPairSumEqual(list []int, sum int) (a, b int, err error) {
 	return 0, 0, err
 }
 
+func SolvePart1() {
+	values, err := parseFile("day1.input")
+	if err != nil {
+		fmt.Println(err)
+	}
+	a, b, err := findPairSumEqual(values, 2020)
+	if err != nil {
+		fmt.Println(err)
+	}
+	result := a * b
+	fmt.Println(result)
+}
+
 func findTrioSumEqual(list []int, sum int) (a, b, c int, err error) {
 	for len(list) > 0 {
 		a := list[0]
@@ -58,4 +71,17 @@ func findTrioSumEqual(list []int, sum int) (a, b, c int, err error) {
 	}
 	err = fmt.Errorf("cannot find a trio which sum equals %d", sum)
 	return 0, 0, 0, err
+}
+
+func SolvePart2() {
+	values, err := parseFile("day1.input")
+	if err != nil {
+		fmt.Println(err)
+	}
+	a, b, c, err := findTrioSumEqual(values, 2020)
+	if err != nil {
+		fmt.Println(err)
+	}
+	result := a * b * c
+	fmt.Println(result)
 }
