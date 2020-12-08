@@ -1,30 +1,14 @@
 package day3
 
 import (
-	"bufio"
 	"fmt"
-	"os"
+	"github.com/lluiscampos/advent-of-code-2020/util"
 )
 
 const (
 	openRune = '.'
 	treeRune = '#'
 )
-
-func parseFile(filename string) (list []string, err error) {
-	file, err := os.Open(filename)
-	if err != nil {
-		return nil, err
-	}
-	defer file.Close()
-
-	var lines []string
-	scanner := bufio.NewScanner(file)
-	for scanner.Scan() {
-		lines = append(lines, scanner.Text())
-	}
-	return lines, scanner.Err()
-}
 
 func checkTrees(slope []string, right, down int) int {
 	currPos := right
@@ -45,7 +29,7 @@ func checkTrees(slope []string, right, down int) int {
 }
 
 func SolvePart1() {
-	slopeMap, err := parseFile("day3.input")
+	slopeMap, err := util.ParseFileStrings("day3.input")
 	if err != nil {
 		fmt.Println(err)
 	}
@@ -53,7 +37,7 @@ func SolvePart1() {
 }
 
 func SolvePart2() {
-	slopeMap, err := parseFile("day3.input")
+	slopeMap, err := util.ParseFileStrings("day3.input")
 	if err != nil {
 		fmt.Println(err)
 	}
