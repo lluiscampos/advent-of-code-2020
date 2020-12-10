@@ -4,12 +4,13 @@ import (
 	"fmt"
 	"github.com/lluiscampos/advent-of-code-2020/util"
 	"math"
+	"sort"
 )
 
 func makeRange(min, max int) []int {
 	ret := make([]int, max-min+1)
 	for i := range ret {
-		ret[i] = i
+		ret[i] = min + i
 	}
 	return ret
 }
@@ -50,6 +51,7 @@ func decodeColumn(partition string) (int, error) {
 func calcSeatID(row, column int) int {
 	return row*8 + column
 }
+
 func SolvePart1() {
 	lines, err := util.ParseFileStrings("day5.input")
 	if err != nil {
@@ -73,4 +75,36 @@ func SolvePart1() {
 		}
 	}
 	fmt.Println(highSeatID)
+}
+
+func SolvePart2() {
+	lines, err := util.ParseFileStrings("day5.input")
+	if err != nil {
+		fmt.Println(err)
+	}
+	var seatList []int
+	for _, l := range lines {
+		row, err := decodeRow(l[:7])
+		if err != nil {
+			fmt.Println(err)
+			return
+		}
+		column, err := decodeColumn(l[7:])
+		if err != nil {
+			fmt.Println(err)
+			return
+		}
+		seatList = append(seatList, calcSeatID(row, column))
+	}
+
+	sort.Ints(seatList)
+
+	refRange := makeRange(seatList[0], seatList[len(seatList)-1])
+	for i, seat := range seatList {
+		if seat != refRange[i] {
+			fmt.Println(refRange[i])
+			break
+		}
+	}
+
 }
