@@ -1,9 +1,8 @@
 package day4
 
 import (
-	"bufio"
 	"fmt"
-	"os"
+	"github.com/lluiscampos/advent-of-code-2020/util"
 	"regexp"
 	"strconv"
 	"strings"
@@ -46,34 +45,18 @@ func (p *passport) Valid() bool {
 }
 
 func parseFile(filename string) ([]passport, error) {
-	file, err := os.Open(filename)
+	passportsStringsGroups, err := util.ParseFileStringsGroups(filename)
 	if err != nil {
-		return nil, err
+		fmt.Println(err)
 	}
-	defer file.Close()
-
-	scanner := bufio.NewScanner(file)
-
-	var passportsStrings []string
-	passCandidate := ""
-	for scanner.Scan() {
-		line := scanner.Text()
-		if line == "" {
-			passportsStrings = append(passportsStrings, passCandidate)
-			passCandidate = ""
-		} else {
-			passCandidate = passCandidate + "  " + line
-
-		}
-	}
-	err = scanner.Err()
-	if err != nil {
-		return nil, err
-	}
-	passportsStrings = append(passportsStrings, passCandidate)
 
 	var passports []passport
-	for _, passString := range passportsStrings {
+	for _, passStringGroup := range passportsStringsGroups {
+		passString := ""
+		for _, line := range passStringGroup {
+			passString += " " + line
+		}
+
 		var pass passport
 		fieldValPairs := strings.Split(passString, " ")
 		for _, fieldValPair := range fieldValPairs {
