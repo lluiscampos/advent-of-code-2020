@@ -78,9 +78,8 @@ func (b *bagRulesList) Reset() {
 	b.bagRules = nil
 }
 
-func (b *bagRule) ContainsRecurive(color string) bool {
-	_, ok := b.contains[color]
-	if ok {
+func (b *bagRule) ContainsRecursive(color string) bool {
+	if b.Contains(color) {
 		return true
 	}
 	for c := range b.contains {
@@ -88,9 +87,7 @@ func (b *bagRule) ContainsRecurive(color string) bool {
 		if !ok {
 			return false
 		}
-		if bag.ContainsRecurive(color) {
-			return true
-		}
+		return bag.ContainsRecursive(color)
 	}
 	return false
 }
@@ -98,7 +95,7 @@ func (b *bagRule) ContainsRecurive(color string) bool {
 func (b *bagRulesList) FindContainsRecursive(color string) ([]*bagRule, error) {
 	var foundBags []*bagRule
 	for _, bag := range b.bagRules {
-		if bag.ContainsRecurive(color) {
+		if bag.ContainsRecursive(color) {
 			foundBags = append(foundBags, bag)
 		}
 
@@ -127,4 +124,41 @@ func SolvePart1() {
 		return
 	}
 	fmt.Println(len(found))
+}
+
+func (b *bagRule) ContainsNumRecursive() int {
+	// fmt.Printf("ContainsNumRecursive:: %s --> %q\n", b.color, b.contains)
+	if len(b.contains) == 0 {
+		return 0
+	}
+	totalBags := 0
+	for c, n := range b.contains {
+		// fmt.Printf("ContainsNumRecursive:: %s %d\n", c, n)
+		bag, ok := allBags.Find(c)
+		if !ok {
+			continue
+		}
+		totalBags += n + n*bag.ContainsNumRecursive()
+	}
+
+	// fmt.Printf("ContainsNumRecursive:: %s --> %q ==> %d\n", b.color, b.contains, totalBags)
+	return totalBags
+}
+
+func (b *bagRulesList) FindContainsNumRecursive(color string) (int, error) {
+	parentBag, ok := b.Find(color)
+	if !ok {
+		err := fmt.Errorf("cannot find bag %q in list", color)
+		return -1, err
+	}
+	return parentBag.ContainsNumRecursive(), nil
+}
+
+func SolvePart2() {
+	num, err := allBags.FindContainsNumRecursive("shiny gold")
+	if err != nil {
+		fmt.Println(err)
+		return
+	}
+	fmt.Println(num)
 }

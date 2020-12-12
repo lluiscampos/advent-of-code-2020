@@ -59,3 +59,20 @@ func TestFindContainsRecursive(t *testing.T) {
 
 	allBags.Reset()
 }
+
+func TestFindContainsNumRecursive(t *testing.T) {
+	lines, err := util.ParseFileStrings("day7part2.example")
+	assert.NoError(t, err)
+	for _, l := range lines {
+		_, err := newBagRule(l)
+		assert.NoError(t, err)
+	}
+
+	assert.Equal(t, 7, allBags.Len())
+
+	num, err := allBags.FindContainsNumRecursive("shiny gold")
+	assert.NoError(t, err)
+	assert.Equal(t, 126, num)
+
+	allBags.Reset()
+}
