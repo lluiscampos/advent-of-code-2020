@@ -3,6 +3,7 @@ package main
 import (
 	"fmt"
 	"github.com/lluiscampos/advent-of-code-2020/day1"
+	"github.com/lluiscampos/advent-of-code-2020/day10"
 	"github.com/lluiscampos/advent-of-code-2020/day2"
 	"github.com/lluiscampos/advent-of-code-2020/day3"
 	"github.com/lluiscampos/advent-of-code-2020/day4"
@@ -47,4 +48,7 @@ func main() {
 	printDayHeader(9)
 	day9.SolvePart1()
 	day9.SolvePart2()
+	printDayHeader(10)
+	day10.SolvePart1()
+	// day10.SolvePart2()
 }
