@@ -1,30 +1,9 @@
 package day1
 
 import (
-	"bufio"
 	"fmt"
-	"os"
-	"strconv"
+	"github.com/lluiscampos/advent-of-code-2020/util"
 )
-
-func parseFile(filename string) (list []int, err error) {
-	file, err := os.Open(filename)
-	if err != nil {
-		return nil, err
-	}
-	defer file.Close()
-
-	var lines []int
-	scanner := bufio.NewScanner(file)
-	for scanner.Scan() {
-		val, err := strconv.Atoi(scanner.Text())
-		if err != nil {
-			return nil, err
-		}
-		lines = append(lines, val)
-	}
-	return lines, scanner.Err()
-}
 
 func findPairSumEqual(list []int, sum int) (a, b int, err error) {
 	for len(list) > 0 {
@@ -41,7 +20,7 @@ func findPairSumEqual(list []int, sum int) (a, b int, err error) {
 }
 
 func SolvePart1() {
-	values, err := parseFile("day1.input")
+	values, err := util.ParseFileInts("day1.input")
 	if err != nil {
 		fmt.Println(err)
 	}
@@ -74,7 +53,7 @@ func findTrioSumEqual(list []int, sum int) (a, b, c int, err error) {
 }
 
 func SolvePart2() {
-	values, err := parseFile("day1.input")
+	values, err := util.ParseFileInts("day1.input")
 	if err != nil {
 		fmt.Println(err)
 	}

@@ -1,12 +1,13 @@
 package day1
 
 import (
+	"github.com/lluiscampos/advent-of-code-2020/util"
 	"github.com/stretchr/testify/assert"
 	"testing"
 )
 
 func TestParseFile(t *testing.T) {
-	stuff, err := parseFile("day1.example")
+	stuff, err := util.ParseFileInts("day1.example")
 	assert.NoError(t, err)
 	assert.Equal(t, len(stuff), 6)
 	assert.Equal(t, stuff[0], 1721)
@@ -24,7 +25,7 @@ func TestFindPairSumEqual(t *testing.T) {
 	a, b, err = findPairSumEqual(fake, 100)
 	assert.Error(t, err)
 
-	example, _ := parseFile("day1.example")
+	example, _ := util.ParseFileInts("day1.example")
 	a, b, err = findPairSumEqual(example, 2020)
 	assert.NoError(t, err)
 	assert.Equal(t, a, 1721)
@@ -39,7 +40,7 @@ func TestFindTrioSumEqual(t *testing.T) {
 	assert.Equal(t, b, 20)
 	assert.Equal(t, c, 50)
 
-	example, _ := parseFile("day1.example")
+	example, _ := util.ParseFileInts("day1.example")
 	a, b, c, err = findTrioSumEqual(example, 2020)
 	assert.NoError(t, err)
 	assert.Equal(t, a, 979)

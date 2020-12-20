@@ -10,6 +10,7 @@ import (
 	"github.com/lluiscampos/advent-of-code-2020/day6"
 	"github.com/lluiscampos/advent-of-code-2020/day7"
 	"github.com/lluiscampos/advent-of-code-2020/day8"
+	"github.com/lluiscampos/advent-of-code-2020/day9"
 )
 
 func printDayHeader(day int) {
@@ -43,4 +44,7 @@ func main() {
 	printDayHeader(8)
 	day8.SolvePart1()
 	day8.SolvePart2()
+	printDayHeader(9)
+	day9.SolvePart1()
+	day9.SolvePart2()
 }

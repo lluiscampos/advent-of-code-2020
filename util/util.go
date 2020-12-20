@@ -3,6 +3,7 @@ package util
 import (
 	"bufio"
 	"os"
+	"strconv"
 )
 
 func ParseFileStrings(filename string) (list []string, err error) {
@@ -47,4 +48,23 @@ func ParseFileStringsGroups(filename string) (list [][]string, err error) {
 		return nil, err
 	}
 	return stringGroups, nil
+}
+
+func ParseFileInts(filename string) (list []int, err error) {
+	file, err := os.Open(filename)
+	if err != nil {
+		return nil, err
+	}
+	defer file.Close()
+
+	var lines []int
+	scanner := bufio.NewScanner(file)
+	for scanner.Scan() {
+		val, err := strconv.Atoi(scanner.Text())
+		if err != nil {
+			return nil, err
+		}
+		lines = append(lines, val)
+	}
+	return lines, scanner.Err()
 }
