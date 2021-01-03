@@ -50,5 +50,5 @@ func main() {
 	day9.SolvePart2()
 	printDayHeader(10)
 	day10.SolvePart1()
-	// day10.SolvePart2()
+	day10.SolvePart2()
 }
